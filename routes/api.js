@@ -97,6 +97,17 @@ router.get('/geminiAi', async (req, res) => {
   res.type('json').send(JSON.stringify(result, null, 2))
 })
 
+router.get('/bing-img', async (req, res) => {
+  let text = req.query.text
+  let apikey = req.query.apikey
+  if (!text) return res.json(global.status.text)
+    if (!apikey) return res.json(global.status.apikey)
+  if (!global.apikey.includes(apikey)) return res.json(global.status.invalidKey)
+  let result = await ai.bingimg(text)
+  res.header('Content-Type: application/json')
+  res.type('json').send(JSON.stringify(result, null, 2))
+})
+
 
 /*
 Downloader
@@ -215,6 +226,18 @@ router.get('/tiktok-stalk', async (req, res) => {
   let result = await stalk.tiktokStalk(q)
   res.header('Content-Type: application/json')
   res.type('json').send(JSON.stringify(result, null, 2))
+})
+
+router.get('/instagram-stalk', async (req, res) => {
+  let q = req.query.q
+  let apikey = req.query.apikey
+  if (!q) return res.json(handle.query)
+  if (!apikey) return res.json(global.status.apikey)
+  if (!global.apikey.includes(apikey)) return res.json(global.status.invalidKey)
+  let result = await stalk.igStalk(q)
+  res.header('Content-Type: application/json')
+  res.type('json').send(JSON.stringify(result, null, 2))
+  
 })
 
 module.exports = router

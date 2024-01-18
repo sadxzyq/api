@@ -1,3 +1,3 @@
-const a = require('./lib/Ai.js')
+const { TiktokStalk } = require('@tobyg74/tiktok-api-dl')
 
-a.geminiAi('hai').then(_ => console.log(_))
+  TiktokStalk('mrbeast').then(_ => console.log(_))
